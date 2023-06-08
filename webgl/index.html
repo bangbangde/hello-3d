@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Chapter01 </h1>
+
+
+<!--概述-->
+<p>
+    WebGL 采用 HTML5 中新引人的 canvas 元素标签， 它定义了网页上的绘图区城。
+    <br>
+    如果没有WebGL, JavaScript 只能在 canvas 上绘制二维图形，有了 WebGL，就可以在上面绘制三维图形了。
+</p>
+
+<p>就像canvas 2d 上下文提供基础的 2d 绘制 API，webGL 上下文提供的是 3d 绘制 API。</p>
+
+<p>而更上层的渲染技术、动画则是引擎或框架提供的能力</p>
+
+<p>我觉得 webGL 入门水平，应该可以做一个画板程序的 3D 版本（简易3D编辑器）:)</p>
+
+<hr>
+
+
+<!---->
+<h2>复习一下 canvas 2d 绘图</h2>
+<style>
+    canvas {
+        border: 8px solid gold;
+        background-color: whitesmoke;
+    }
+</style>
+<canvas id="c1" width="300" height="300">你的浏览器不支持 Canvas</canvas>
+<script>
+    const canvas = document.getElementById('c1');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#000'
+    ctx.fillRect(0, 0, 150, 150);
+</script>
+
+<p></p>
+
+<!---->
+<h2>最简单的 webGL 绘图</h2>
+<canvas id="c2" width="300" height="300">你的浏览器不支持 Canvas</canvas>
+<script src="./examples/lib/webgl-debug.js"></script>
+<script src="./examples/lib/webgl-utils.js"></script>
+<script src="./examples/lib/cuon-utils.js"></script>
+<script>
+    (function () {
+        const canvas = document.getElementById('c2');
+        const gl = getWebGLContext(canvas);
+        if (gl == null) return;
+
+        // 原点在画布中间
+        const V_SHADER_SOURCE = `
+            void main() {
+                gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
+                gl_PointSize = 10.0;
+            }
+        `;
+        const F_SHADER_SOURCE = `
+            void main() {
+                gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            }
+        `;
+        if (!initShaders(gl, V_SHADER_SOURCE, F_SHADER_SOURCE)) {
+            return;
+        }
+        gl.clearColor(0.0, 0.0, 0.0, 1.0); // RGBA 0.0-1.0
+        gl.clear(gl.COLOR_BUFFER_BIT); // 使用指定颜色清空颜色缓冲区
+        gl.drawArrays(gl.POINTS, 0, 1);
+    })();
+</script>
+
+<p></p>
+
+</body>
+</html>
