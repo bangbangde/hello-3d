@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            border: 1px solid black;
+            height: 200px;
+            overflow: auto;
+        }
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 10px solid red;
+            outline: 10px solid blue;
+            margin: 20px;
+            padding: 10px;
+            background-color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box"><span>hello</span></div>
+</div>
+<p id="panel"></p>
+<script>
+    const ele = document.querySelector('.box')
+    const panel = document.querySelector('#panel')
+    console.log(ele['offsetHeight'])
+    setTimeout(() => {
+        [
+            'offsetHeight',
+            'offsetLeft',
+            'offsetParent',
+            'offsetTop',
+            'offsetWidth'
+        ].forEach(k => {
+            console.log(k, ele[k])
+        })
+    })
+</script>
+</body>
+</html>
